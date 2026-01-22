@@ -1,0 +1,245 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F3F4F6;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* =========================
+   CABEÇALHO (HEADER)
+========================= */
+.header {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente os itens */
+    padding: 10px 20px;  /* Ajustei o padding */
+    background: #232F3E;
+    color: white;
+    font-size: 24px;     /* Tamanho levemente ajustado */
+}
+
+/* Ícone de livro no header */
+#biblioteca-icon {
+    width: 50px;    /* Reduzi para caber melhor no header */
+    height: 50px;
+    margin-right: 15px; /* Espaço entre ícone e título */
+    margin-top: 0;      /* Removi margem desnecessária */
+}
+
+/* Campo de busca */
+input#search-input {
+    width: 300px;       /* Largura fixa melhor que 10% */
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+    color: #333;
+    /* A margem esquerda (margin-left: auto) já está no HTML inline, o que é ok */
+}
+
+/* =========================
+   GRID DE LIVROS (CORRIGIDO)
+========================= */
+/* O HTML usa class="grid-livros", não ID "Book-List" */
+.grid-livros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsivo */
+    gap: 30px;
+    padding: 40px 20px;
+    justify-items: center; /* Centraliza os cards na grade */
+}
+
+/* O JS cria cards com class="livro-card", não "book-item" */
+.livro-card {
+    background-color: white;
+    width: 200px;          /* Largura fixa para o card */
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.livro-card img {
+    width: 100%;
+    height: 250px;         /* Altura fixa para manter padrão */
+    object-fit: cover;     /* Evita distorção da imagem */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.livro-card h3 {
+    font-size: 18px;
+    margin: 10px 0 5px 0;
+    color: #232F3E;
+}
+
+.livro-card p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+/* Efeitos de interação */
+.livro-card:hover {
+    transform: translateY(-5px); /* Levanta levemente */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.livro-card:active {
+    transform: scale(0.98);
+}
+
+/* =========================
+   BOTÃO FLUTUANTE (+)
+========================= */
+#btn_cadastro {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #232F3E;
+    color: white;
+    font-size: 30px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background-color 0.2s;
+    z-index: 100; /* Garante que fique acima de tudo */
+}
+
+#btn_cadastro:hover {
+    background-color: #37475A;
+    transform: scale(1.1);
+}
+
+/* =========================
+   TÍTULO BIBLIOTECA
+========================= */
+#biblioteca {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: #232F3E;
+}
+
+/* =========================
+   MODAIS (Pop-ups)
+========================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* Controlado pelo JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    max-height: 90vh; /* Evita que o modal passe da tela */
+    overflow-y: auto; /* Permite rolar se for muito grande */
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888;
+}
+
+.fechar-modal:hover {
+    color: #333;
+}
+
+/* =========================
+   FORMULÁRIOS
+========================= */
+.formLivro {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formLivro label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.formLivro input, 
+.formLivro textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.formLivro textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* =========================
+   BOTÕES GERAIS
+========================= */
+.btn-submit {
+    background-color: #28a745; /* Verde */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #218838;
+}
+
+.btnDeletar {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btnDeletar:hover {
+    background-color: #c82333;
+}

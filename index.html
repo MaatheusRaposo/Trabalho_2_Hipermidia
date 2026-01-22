@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="header">
+        <img id="biblioteca-icon" src="https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png" alt="">
+        <h1>BookNest</h1>
+        <input id="search-input" type="text" placeholder="Pesquisar..."
+            style="margin-left: auto; height: 30px; font-size: 16px;">
+    </div>
+
+    <div>
+        <div id="biblioteca">
+            <h1>Biblioteca</h1>
+        </div>
+    </div>
+
+    <button id="btn_cadastro">+</button>
+
+    <!-- LISTA DE LIVROS -->
+    <div id="listaLivros" class="grid-livros"></div>
+
+    <!-- MODAL CRIAR -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <span id="fecharModal" class="fechar-modal">&times;</span>
+
+            <h2 id="tituloCriar">Adicionar Novo Livro</h2>
+
+            <form id="formCriar" class="formLivro">
+                <label>Nome do Livro:
+                    <input type="text" name="nome" required>
+                </label>
+
+                <div style="display: flex; gap: 10px;">
+                    <label style="flex: 1;">Ano:
+                        <input type="number" name="ano" required>
+                    </label>
+                    <label style="flex: 1;">ISSN/ISBN:
+                        <input type="text" name="issn" required>
+                    </label>
+                </div>
+
+                <label>Autor:
+                    <input type="text" name="autor" required>
+                </label>
+
+                <label>URL da Capa:
+                    <input type="url" name="imagem_url" required>
+                </label>
+
+                <label>Descrição:
+                    <textarea name="descricao"></textarea>
+                </label>
+
+                <button type="submit" class="btn-submit">Cadastrar Livro</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DETALHES -->
+    <div id="modalDetalhes" class="modal-overlay">
+        <div class="modal-content">
+            <span id="fecharDetalhes" class="fechar-modal">&times;</span>
+
+            <h2 id="detalheNome"></h2>
+            <img id="detalheImagem" style="max-width:150px">
+
+            <p><strong>Ano:</strong> <span id="detalheAno"></span></p>
+            <p><strong>Autor:</strong> <span id="detalheAutor"></span></p>
+            <p><strong>ISSN:</strong> <span id="detalheISSN"></span></p>
+            <p id="detalheDescricao"></p>
+
+            <button id="btnExcluir" class="btnDeletar">Excluir Livro</button>
+        </div>
+    </div>
+</body>
