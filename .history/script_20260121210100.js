@@ -2,7 +2,6 @@ const API_URL = "http://localhost:3000/livros";
 
 let livroSelecionadoId = null;
 let livrosCache = [];
-let livroParaEditar = null;
 
 /* =========================
    LISTAR LIVROS
@@ -44,42 +43,27 @@ document.getElementById("formCriar").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
 
-  const dadosLivro = {
-    nome: form.nome.value,
+  const livro = {
+    nome: form.nome.value.trim(),
     ano: form.ano.value,
-    issn: form.issn.value,
-    autor: form.autor.value,
-    imagem_url: form.imagem_url.value,
-    descricao: form.descricao.value
+    issn: form.issn.value.trim(),
+    autor: form.autor.value.trim(),
+    imagem_url: form.imagem_url.value.trim(),
+    descricao: form.descricao.value.trim()
   };
 
   try {
-    let url = API_URL;
-    let metodo = "POST";
-
-    // Se tiver ID selecionado, é EDIÇÃO
-    if (livroSelecionadoId) {
-      url = `${API_URL}/${livroSelecionadoId}`;
-      metodo = "PUT";
-    }
-
-    const res = await fetch(url, {
-      method: metodo,
+    await fetch(API_URL, {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dadosLivro)
+      body: JSON.stringify(livro)
     });
 
-    if (res.ok) {
-      fecharModal("modalOverlay");
-      carregarLivros(); // Recarrega a lista
-      alert(livroSelecionadoId ? "Livro atualizado!" : "Livro cadastrado!");
-      livroSelecionadoId = null; // Reseta após salvar
-    } else {
-      alert("Erro ao salvar livro.");
-    }
-  } catch (error) {
-    console.error(error);
-    alert("Erro de conexão.");
+    form.reset();
+    fecharModal("modalOverlay");
+    carregarLivros();
+  } catch {
+    alert("Erro ao cadastrar livro");
   }
 });
 
@@ -87,50 +71,17 @@ document.getElementById("formCriar").addEventListener("submit", async (e) => {
    DETALHAR LIVRO
 ========================= */
 function abrirDetalhes(livro) {
-  console.log("Guardando livro para edição:", livro); // Debug no console
-
   livroSelecionadoId = livro.id;
-  livroParaEditar = livro; // <--- IMPORTANTE: Isso salva o livro na memória!
 
-  // Preenche o modal de visualização (Detalhes)
   document.getElementById("detalheNome").innerText = livro.nome;
   document.getElementById("detalheImagem").src = livro.imagem_url;
   document.getElementById("detalheAno").innerText = livro.ano;
   document.getElementById("detalheAutor").innerText = livro.autor;
   document.getElementById("detalheISSN").innerText = livro.issn;
-  document.getElementById("detalheDescricao").innerText = livro.descricao || "Sem descrição";
+  document.getElementById("detalheDescricao").innerText =
+    livro.descricao || "Sem descrição";
 
   abrirModal("modalDetalhes");
-}
-
-// Lógica do botão Editar
-document.getElementById("btnEditar").onclick = () => {
-  fecharModal("modalDetalhes"); // Fecha o visualizador
-  prepararEdicao(livroParaEditar); // Abre o formulário preenchido
-};
-
-function prepararEdicao(livro) {
-  // Proteção contra o erro "livro is null"
-  if (!livro) {
-    console.error("Erro: O livro para edição está vazio!");
-    alert("Houve um erro ao selecionar o livro. Tente recarregar a página.");
-    return;
-  }
-
-  const form = document.getElementById("formCriar");
-  
-  // Preenche os campos
-  form.nome.value = livro.nome;
-  form.ano.value = livro.ano;
-  form.issn.value = livro.issn;
-  form.autor.value = livro.autor;
-  form.imagem_url.value = livro.imagem_url;
-  form.descricao.value = livro.descricao;
-
-  document.getElementById("tituloModal").innerText = "Editar Livro";
-  document.querySelector("#formCriar button").innerText = "Salvar Alterações";
-  
-  abrirModal("modalOverlay");
 }
 
 /* =========================
@@ -167,15 +118,6 @@ document.getElementById("search-input").addEventListener("input", (e) => {
 
   renderizarLivros(filtrados);
 });
-
-document.getElementById("btn_cadastro").onclick = () => {
-  livroSelecionadoId = null; // Garante que não é edição
-  livroParaEditar = null;
-  document.getElementById("formCriar").reset(); // Limpa o formulário
-  document.getElementById("tituloModal").innerText = "Novo Livro"; // Muda título
-  document.querySelector("#formCriar button").innerText = "Cadastrar Livro"; // Muda botão
-  abrirModal("modalOverlay");
-};
 
 /* =========================
    MODAIS

@@ -44,26 +44,6 @@ app.post("/livros", async (req, res) => {
   }
 });
 
-// ATUALIZAR LIVRO (PUT)
-app.put("/livros/:id", async (req, res) => {
-  const { id } = req.params;
-  const { nome, ano, issn, autor, imagem_url, descricao } = req.body;
-
-  try {
-    const query = `
-      UPDATE livros 
-      SET nome=$1, ano=$2, issn=$3, autor=$4, imagem_url=$5, descricao=$6
-      WHERE id=$7
-    `;
-    await pool.query(query, [nome, ano, issn, autor, imagem_url, descricao, id]);
-    
-    res.json({ mensagem: "Livro atualizado com sucesso!" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ erro: "Erro ao atualizar livro" });
-  }
-});
-
 app.listen(3000, () => {
   console.log("🚀 API rodando em http://localhost:3000");
 });

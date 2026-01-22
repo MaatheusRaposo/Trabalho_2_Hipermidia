@@ -28,11 +28,12 @@
     <!-- LISTA DE LIVROS -->
     <div id="listaLivros" class="grid-livros"></div>
 
-   <div id="modalOverlay" class="modal-overlay">
+    <!-- MODAL CRIAR -->
+    <div id="modalOverlay" class="modal-overlay">
         <div class="modal-content">
             <span id="fecharModal" class="fechar-modal">&times;</span>
 
-            <h2 id="tituloModal">Novo Livro</h2>
+            <h2 id="tituloCriar">Adicionar Novo Livro</h2>
 
             <form id="formCriar" class="formLivro">
                 <label>Nome do Livro:
@@ -71,17 +72,14 @@
             <span id="fecharDetalhes" class="fechar-modal">&times;</span>
 
             <h2 id="detalheNome"></h2>
-            <img id="detalheImagem" style="max-width:150px; display:block; margin: 0 auto;">
+            <img id="detalheImagem" style="max-width:150px">
 
             <p><strong>Ano:</strong> <span id="detalheAno"></span></p>
             <p><strong>Autor:</strong> <span id="detalheAutor"></span></p>
             <p><strong>ISSN:</strong> <span id="detalheISSN"></span></p>
-            <p><strong>Descrição:</strong> <span id="detalheDescricao"></span></p>
-            
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button id="btnEditar" class="btnEditar">Editar</button>
-                <button id="btnExcluir" class="btnDeletar">Excluir</button>
-            </div>
+            <p id="detalheDescricao"></p>
+
+            <button id="btnExcluir" class="btnDeletar">Excluir Livro</button>
         </div>
     </div>
 </body>

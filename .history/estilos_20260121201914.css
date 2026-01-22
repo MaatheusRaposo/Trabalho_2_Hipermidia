@@ -238,22 +238,6 @@ input#search-input {
     transition: background-color 0.2s;
     width: 100%;
     margin-top: 10px;
-    flex: 1;
-}
-
-.btnEditar {
-    background-color: #007bff; /* Azul */
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.2s;
-    width: 100%;
-    margin-top: 10px;
-    flex: 1;
 }
 
 .btnDeletar:hover {
